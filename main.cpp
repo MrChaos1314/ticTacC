@@ -14,13 +14,11 @@ int main(){
     {
         for(int j = 0; j < ttt[i].size(); j++){
             ttt[i][j] = 0;
-        }
-        for(int j = 0; j < ttt[i].size(); j++){
-            cout << ttt[i][j] << " ";
-        }
-        
+        }        
         cout << endl;
     }
+
+    printT(ttt);
 
     while(true){
         
@@ -46,7 +44,9 @@ int main(){
 
 void printT(vector<vector<int>> &ttt){
     system("cls");
+    cout << "      Spalte" << endl;
     for(int i=0; i < ttt.size(); i++){
+        cout << "Reihe ";
         for(int j = 0; j < ttt[i].size(); j++){
             cout << ttt[i][j] << " ";
         }
@@ -86,6 +86,18 @@ bool isPlayerOneWinner(vector<vector<int>> &ttt){
 
     for(int i = 0; i < ttt.size(); i++){
         if(ttt[i][i] == 1){
+            isLineEqual = true;
+        }else{
+            isLineEqual = false;
+            break;
+        }
+    }
+    if(isLineEqual == true){
+        return true;
+    }
+
+    for(int i = ttt.size() - 1; i >= 0; i--){
+        if(ttt[ttt.size() - i - 1][i] == 1){ 
             isLineEqual = true;
         }else{
             isLineEqual = false;
@@ -141,18 +153,34 @@ bool isPlayerTwoWinner(vector<vector<int>> &ttt){
         return true;
     }
 
+    for(int i = ttt.size() - 1; i >= 0; i--){
+        if(ttt[ttt.size() - i - 1][i] == 2){ 
+            isLineEqual = true;
+        }else{
+            isLineEqual = false;
+            break;
+        }
+    }
+    if(isLineEqual == true){
+        return true;
+    }
+
     return false;
 }
 
 void setMarkPlayerOne(vector<vector<int>> &ttt){
     int whereMarkX;
     int whereMarkY;
-    cout << "Spieler 1 - Gib die Reihe ein: (1; 2; 3)" << endl;
-    cin >> whereMarkX;
-    cout << "Spieler 1 - Gib die Spalte ein: (1; 2; 3)" << endl;
-    cin >> whereMarkY;
-    whereMarkX--;
-    whereMarkY--;
+    do{
+        printT(ttt);
+        cout << "Spieler 1 - Gib die Reihe ein: (1; 2; 3)" << endl;
+        cin >> whereMarkX;
+        cout << "Spieler 1 - Gib die Spalte ein: (1; 2; 3)" << endl;
+        cin >> whereMarkY;
+        whereMarkX--;
+        whereMarkY--;
+    }while(ttt[whereMarkX][whereMarkY] != 0);
+    
     ttt[whereMarkX][whereMarkY] = 1;
     printT(ttt);
 }
@@ -160,12 +188,15 @@ void setMarkPlayerOne(vector<vector<int>> &ttt){
 void setMarkPlayerTwo(vector<vector<int>> &ttt){
     int whereMarkX;
     int whereMarkY;
-    cout << "Spieler 2 - Gib die Reihe ein: (1; 2; 3)" << endl;
-    cin >> whereMarkX;
-    cout << "Spieler 2 - Gib die Spalte ein: (1; 2; 3)" << endl;
-    cin >> whereMarkY;
-    whereMarkX--;
-    whereMarkY--;
+    do{
+        printT(ttt);
+        cout << "Spieler 2 - Gib die Reihe ein: (1; 2; 3)" << endl;
+        cin >> whereMarkX;
+        cout << "Spieler 2 - Gib die Spalte ein: (1; 2; 3)" << endl;
+        cin >> whereMarkY;
+        whereMarkX--;
+        whereMarkY--;
+    }while(ttt[whereMarkX][whereMarkY] != 0);
     ttt[whereMarkX][whereMarkY] = 2;
     printT(ttt);
 }
